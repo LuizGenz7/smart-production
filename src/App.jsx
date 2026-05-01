@@ -132,7 +132,7 @@ export default function App() {
     <div className="bg-slate-950 text-white">
       {/* HEADER */}
       <header
-        className={`fixed py-1 top-0 left-0 w-full z-50 backdrop-blur-md transition-all duration-300
+        className={`sm:fixed py-1 top-0 left-0 w-full z-50 backdrop-blur-md transition-all duration-300
   ${
     scrolled
       ? "bg-slate-950/70 border-b border-slate-800"
@@ -205,7 +205,7 @@ export default function App() {
 
           {/* CENTER SOFT GLOW DEPTH */}
           <div className="absolute inset-0 flex items-center justify-center opacity-10">
-            <div className="w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-linear-to-br from-orange-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" />
+            <div className="w-72 sm:w-96 md:w-125 h-72 sm:h-96 md:h-125 bg-linear-to-br from-orange-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" />
           </div>
         </div>
 
@@ -239,7 +239,7 @@ export default function App() {
           </div>
 
           {/* FEATURE TAGS */}
-          <div className="mt-8 flex flex-wrap justify-center gap-2 sm:gap-3 text-xs px-2">
+          <div className="mt-8 grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-2 sm:gap-3 text-xs px-2">
             <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-2 rounded-full">
               <BoltIcon className="w-4 h-4 text-orange-400" />
               High Performance
@@ -262,7 +262,7 @@ export default function App() {
           </div>
 
           {/* MINI STATS */}
-          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 text-xs text-slate-400">
+          <div className="mt-6  flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 text-xs text-slate-400">
             <div className="flex flex-col items-center">
               <p className="text-white font-bold text-sm">2+ Apps</p>
               <p>Active Products</p>
