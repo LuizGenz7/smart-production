@@ -29,8 +29,8 @@ const apps = [
     icon: DevicePhoneMobileIcon,
     iconColor: "text-orange-400",
 
-    appIcon: "https://cdn-icons-png.flaticon.com/512/9068/9068678.png",
-
+    appIcon: '/profile.webp',
+    downloadUrl: 'https://drive.google.com/file/d/1lSmHNIt5ldqgPlFDcg7aOiIESysd3Kxt/view?usp=sharing',
     description:
       "School management system for attendance, pupils, and reports.",
 
@@ -349,7 +349,7 @@ export default function App() {
                     What’s New
                   </p>
 
-                  <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-1">
+                  <div className="space-y-1">
                     {app.updates.map((item, i) => (
                       <div
                         key={i}
@@ -391,7 +391,7 @@ export default function App() {
               {/* BUTTON */}
               {app.type === "release" && (
                 <a
-                  href="#"
+                  href={app.downloadUrl || '#'}
                   className={`inline-flex items-center gap-2 mt-6 text-sm sm:text-base ${app.button.color} px-4 sm:px-5 py-2 sm:py-3 rounded-xl font-semibold`}
                 >
                   <app.button.icon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -418,7 +418,7 @@ export default function App() {
           {apps.map((app) => (
             <div
               key={app.id}
-              className="min-w-[280px] sm:min-w-[340px] bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between"
+              className="min-w-70 sm:min-w-85 bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between"
             >
               {/* TOP */}
               <div>
@@ -480,7 +480,7 @@ export default function App() {
               <div className="mt-5 flex items-center justify-between">
                 {app.type === "release" ? (
                   <a
-                    href="#"
+                    href={app.downloadUrl || '#'}
                     className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-xl text-sm font-semibold"
                   >
                     <ArrowDownTrayIcon className="w-4 h-4" />
@@ -557,7 +557,7 @@ export default function App() {
 
             <div className="space-y-3">
               <a
-                href="https://wa.me/298498689888"
+                href="https://wa.me/260962063468"
                 className="flex items-center justify-between bg-slate-950 border border-slate-800 px-4 py-3 rounded-xl hover:border-green-500 transition"
               >
                 <span className="text-sm text-slate-300">Direct Support</span>
@@ -567,7 +567,7 @@ export default function App() {
               </a>
 
               <a
-                href="mailto:genxlewis@gma"
+                href="mailto:genzlewis@gmail.com"
                 className="flex items-center justify-between bg-slate-950 border border-slate-800 px-4 py-3 rounded-xl hover:border-yellow-500 transition"
               >
                 <span className="text-sm text-slate-300">Business Email</span>
@@ -601,7 +601,7 @@ export default function App() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {/* WHATSAPP */}
           <a
-            href="https://wa.me/298498689888"
+            href="https://wa.me/260962063468"
             target="_blank"
             className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 hover:border-green-500 transition"
           >
@@ -613,13 +613,13 @@ export default function App() {
               Chat directly with Smart Production
             </p>
             <p className="text-[11px] sm:text-xs text-slate-500 mt-2">
-              +298 498 689 888
+              +260 962 063 468
             </p>
           </a>
 
           {/* CALL */}
           <a
-            href="tel:+298498689888"
+            href="tel:+260962063468"
             className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 hover:border-blue-500 transition"
           >
             <h4 className="font-bold flex items-center gap-2 text-sm sm:text-base">
@@ -630,13 +630,13 @@ export default function App() {
               Tap to call instantly
             </p>
             <p className="text-[11px] sm:text-xs text-slate-500 mt-2">
-              +298 498 689 888
+              +260 962 063 468
             </p>
           </a>
 
           {/* EMAIL */}
           <a
-            href="mailto:genxlewis@gma"
+            href="mailto:genzlewis@gmail.com"
             className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 hover:border-yellow-500 transition"
           >
             <h4 className="font-bold flex items-center gap-2 text-sm sm:text-base">
@@ -647,13 +647,13 @@ export default function App() {
               Send us an email directly
             </p>
             <p className="text-[11px] sm:text-xs text-slate-500 mt-2">
-              genxlewis@gma
+              genzlewis@gmail.com
             </p>
           </a>
 
           {/* FACEBOOK */}
           <a
-            href="https://facebook.com"
+            href="https://web.facebook.com/genzlewis/"
             target="_blank"
             className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 hover:border-blue-400 transition"
           >
