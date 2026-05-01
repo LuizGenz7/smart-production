@@ -30,7 +30,7 @@ const apps = [
     iconColor: "text-orange-400",
 
     appIcon: '/profile.webp',
-    downloadUrl: 'https://drive.google.com/file/d/1lSmHNIt5ldqgPlFDcg7aOiIESysd3Kxt/view?usp=sharing',
+    downloadUrl: 'https://drive.google.com/file/d/1QryNBkswzt_VX8nBvZmDPLjDJY6TXnhY/view?usp=sharing',
     description:
       "School management system for attendance, pupils, and reports.",
 
