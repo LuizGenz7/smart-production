@@ -19,7 +19,7 @@ export default function handler(req, res) {
   try {
     const config = {
       latestVersion: "1.1.2",
-      minimumVersion: "1.0.0",
+      minimumVersion: "1.0.2",
       updateUrl: "https://smartproduction.vercel.app/",
       message: "New features + bug fixes 🔥",
     };
