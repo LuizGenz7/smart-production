@@ -21,7 +21,7 @@ export default function handler(req, res) {
       latestVersion: "1.1.2",
       minimumVersion: "1.0.2",
       updateUrl: "https://smartproduction.vercel.app/",
-      message: "New features + bug fixes 🔥",
+      message: "Network status updated",
     };
 
     const currentVersion = req.query.version || "0.0.0";

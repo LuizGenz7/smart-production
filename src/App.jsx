@@ -30,7 +30,7 @@ const apps = [
     iconColor: "text-orange-400",
 
     appIcon: '/profile.webp',
-    downloadUrl: 'https://drive.google.com/file/d/1Yzfvhh_LIhRMzwfsQ33ibuZuxUpGcMPy/view?usp=sharing',
+    downloadUrl: 'https://drive.google.com/file/d/16SEe3mz1T_gES3F88s0Jb9k-u3EtMqd5/view?usp=sharing',
     description:
       "School management system for attendance, pupils, and reports.",
 
@@ -42,6 +42,8 @@ const apps = [
     status: "Latest Stable Release",
 
     updates: [
+      "Network status",
+      "Auto sync on network changes",
       "Shimmer loading effect",
       "Improved UI design",
       "Faster performance",
