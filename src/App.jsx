@@ -17,9 +17,9 @@ import {
 } from "@heroicons/react/24/outline";
 
 const smartMarkShots = [
-  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
-  "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800",
-  "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800",
+  "/s1.png",
+  "/s3.png",
+  "/s4.png",
 ];
 
 const apps = [
@@ -30,7 +30,8 @@ const apps = [
     iconColor: "text-orange-400",
 
     appIcon: '/profile.webp',
-    downloadUrl: 'https://drive.google.com/file/d/1wrZKOf7k34A27_3eynCHY5qcyWxe01A2/view?usp=sharing',
+    googleUrl: 'https://drive.google.com/file/d/1wrZKOf7k34A27_3eynCHY5qcyWxe01A2/view?usp=sharing',
+    mediaUrl: 'https://www.mediafire.com/file/djdqlusy8klocj4/smart+mark+v1.1.3',
     description:
       "School management system for attendance, pupils, and reports.",
 
@@ -60,6 +61,12 @@ const apps = [
     button: {
       text: "Download APK",
       color: "bg-green-500 hover:bg-green-600",
+      icon: ArrowDownTrayIcon,
+    },
+
+    mediaBtn: {
+      text: "Download APK",
+      color: "bg-blue-500 hover:bg-blue-600",
       icon: ArrowDownTrayIcon,
     },
   },
@@ -396,7 +403,7 @@ export default function App() {
               {/* BUTTON */}
               {app.type === "release" && (
                 <a
-                  href={app.downloadUrl || '#'}
+                  href={app.googleUrl || '#'}
                   className={`inline-flex items-center gap-2 mt-6 text-sm sm:text-base ${app.button.color} px-4 sm:px-5 py-2 sm:py-3 rounded-xl font-semibold`}
                 >
                   <app.button.icon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -485,7 +492,7 @@ export default function App() {
               <div className="mt-5 flex items-center justify-between">
                 {app.type === "release" ? (
                   <a
-                    href={app.downloadUrl || '#'}
+                    href={app.googleUrl || '#'}
                     className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-xl text-sm font-semibold"
                   >
                     <ArrowDownTrayIcon className="w-4 h-4" />
