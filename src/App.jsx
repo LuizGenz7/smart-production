@@ -30,18 +30,19 @@ const apps = [
     iconColor: "text-orange-400",
 
     appIcon: '/profile.webp',
-    downloadUrl: 'https://drive.google.com/file/d/16SEe3mz1T_gES3F88s0Jb9k-u3EtMqd5/view?usp=sharing',
+    downloadUrl: 'https://drive.google.com/file/d/1wrZKOf7k34A27_3eynCHY5qcyWxe01A2/view?usp=sharing',
     description:
       "School management system for attendance, pupils, and reports.",
 
-    version: "1.1.2",
+    version: "1.1.3",
     newVersion: true,
-    releaseDate: "02 May 2026",
+    releaseDate: "05 May 2026",
 
     requirement: "Android 7+",
     status: "Latest Stable Release",
 
     updates: [
+      "Submit data fixed",
       "Network status",
       "Auto sync on network changes",
       "Shimmer loading effect",
