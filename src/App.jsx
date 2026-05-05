@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   HomeIcon,
   Squares2X2Icon,
@@ -16,11 +16,7 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/outline";
 
-const smartMarkShots = [
-  "/s1.png",
-  "/s3.png",
-  "/s4.png",
-];
+const smartMarkShots = ["/s1.png", "/s3.png", "/s4.png"];
 
 const apps = [
   {
@@ -29,9 +25,11 @@ const apps = [
     icon: DevicePhoneMobileIcon,
     iconColor: "text-orange-400",
 
-    appIcon: '/profile.webp',
-    googleUrl: 'https://drive.google.com/file/d/1wrZKOf7k34A27_3eynCHY5qcyWxe01A2/view?usp=sharing',
-    mediaUrl: 'https://www.mediafire.com/file/djdqlusy8klocj4/smart+mark+v1.1.3',
+    appIcon: "/profile.webp",
+    googleUrl:
+      "https://drive.google.com/file/d/1wrZKOf7k34A27_3eynCHY5qcyWxe01A2/view?usp=sharing",
+    mediaUrl:
+      "https://www.mediafire.com/file/djdqlusy8klocj4/smart+mark+v1.1.3",
     description:
       "School management system for attendance, pupils, and reports.",
 
@@ -51,7 +49,7 @@ const apps = [
       "Faster performance",
       "Bug fixes and stability improvements",
       "Enhanced attendance system",
-      "Reset password included"
+      "Reset password included",
     ],
 
     screenshots: smartMarkShots,
@@ -110,8 +108,6 @@ const links = [
 ];
 
 export default function App() {
-  const footerRef = useRef(null);
-  const [visible, setVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -130,15 +126,6 @@ export default function App() {
     "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800",
     "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800",
   ];
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.2 },
-    );
-
-    if (footerRef.current) obs.observe(footerRef.current);
-    return () => obs.disconnect();
-  }, []);
 
   return (
     <div className="bg-slate-950 text-white">
@@ -151,6 +138,7 @@ export default function App() {
       : "bg-slate-950/40 border-b border-transparent"
   }`}
       >
+        {/* TOP NAV */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 px-4 sm:px-6 py-3">
           <div className="flex flex-col leading-tight text-center sm:text-left">
             <h1 className="text-orange-500 text-xl sm:text-2xl font-bold">
@@ -183,6 +171,26 @@ export default function App() {
               );
             })}
           </nav>
+        </div>
+
+        {/* LIMITED OFFER BANNER */}
+        <div className="bg-orange-500/10 border-t border-orange-500/20">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p className="text-xs sm:text-sm text-orange-300 text-center sm:text-left">
+              🔥 <span className="font-bold text-white">Limited Offer:</span>{" "}
+              First school gets SmartMark for{" "}
+              <span className="font-bold text-orange-400">K800</span> instead of{" "}
+              <span className="line-through">K1000</span> for the first 2 terms.
+            </p>
+
+            <a
+              href="https://wa.me/260962063468"
+              target="_blank"
+              className="bg-orange-500 hover:bg-orange-600 px-3 py-1.5 rounded-lg text-xs font-semibold text-white shrink-0"
+            >
+              Claim Offer
+            </a>
+          </div>
         </div>
       </header>
 
@@ -276,12 +284,12 @@ export default function App() {
           {/* MINI STATS */}
           <div className="mt-6  flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 text-xs text-slate-400">
             <div className="flex flex-col items-center">
-              <p className="text-white font-bold text-sm">2+ Apps</p>
+              <p className="text-white font-bold text-sm">1 App</p>
               <p>Active Products</p>
             </div>
 
             <div className="flex flex-col items-center">
-              <p className="text-white font-bold text-sm">1.0.2</p>
+              <p className="text-white font-bold text-sm">1.1.3</p>
               <p>Latest Release</p>
             </div>
 
@@ -403,7 +411,7 @@ export default function App() {
               {/* BUTTON */}
               {app.type === "release" && (
                 <a
-                  href={app.googleUrl || '#'}
+                  href={app.googleUrl || "#"}
                   className={`inline-flex items-center gap-2 mt-6 text-sm sm:text-base ${app.button.color} px-4 sm:px-5 py-2 sm:py-3 rounded-xl font-semibold`}
                 >
                   <app.button.icon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -414,7 +422,64 @@ export default function App() {
           );
         })}
       </section>
+      {/* PRICING / LIMITED OFFER */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <h3 className="text-xl sm:text-2xl font-bold text-orange-500 mb-8">
+          Limited School Offer
+        </h3>
 
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Standard Plan */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <p className="text-slate-400 text-sm mb-2">Standard Plan</p>
+
+            <h4 className="text-3xl font-bold text-white">K1000</h4>
+
+            <p className="text-slate-500 text-sm mt-1">Per School • Per Term</p>
+
+            <div className="mt-4 text-sm text-slate-300 space-y-2">
+              <p>✓ Attendance Management</p>
+              <p>✓ Pupil Records</p>
+              <p>✓ Reports & Analytics</p>
+              <p>✓ Cloud Sync</p>
+            </div>
+          </div>
+
+          {/* Launch Offer */}
+          <div className="bg-orange-500/10 border border-orange-500 rounded-2xl p-6 relative">
+            <span className="absolute top-4 right-4 bg-orange-500 text-white text-xs px-3 py-1 rounded-full">
+              LIMITED
+            </span>
+
+            <p className="text-orange-400 text-sm mb-2">Launch Offer</p>
+
+            <h4 className="text-3xl font-bold text-white">K800</h4>
+
+            <p className="text-slate-300 text-sm mt-1 font-medium">
+              Per Term • For the First 2 Terms
+            </p>
+
+            <p className="text-slate-400 text-xs mt-2">
+              First school pays K800 each term instead of K1000.
+            </p>
+
+            <div className="mt-4 text-sm text-slate-300 space-y-2">
+              <p>✓ Save K200 every term</p>
+              <p>✓ Save K400 across 2 terms</p>
+              <p>✓ Full SmartMark access</p>
+              <p>✓ Priority support</p>
+            </div>
+
+            <a
+              href="https://wa.me/260962063468"
+              target="_blank"
+              className="inline-block mt-6 bg-orange-500 hover:bg-orange-600 px-5 py-3 rounded-xl font-semibold text-sm"
+            >
+              Reserve Now
+            </a>
+          </div>
+        </div>
+      </section>
       <section
         id="releases"
         className="no-scrollbar max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20"
@@ -492,7 +557,7 @@ export default function App() {
               <div className="mt-5 flex items-center justify-between">
                 {app.type === "release" ? (
                   <a
-                    href={app.googleUrl || '#'}
+                    href={app.googleUrl || "#"}
                     className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-xl text-sm font-semibold"
                   >
                     <ArrowDownTrayIcon className="w-4 h-4" />
@@ -685,9 +750,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer
-        ref={footerRef}
-        className={`border-t border-slate-800 py-10 sm:py-12 text-center transition-all duration-700 px-4 sm:px-6
-  ${visible ? "opacity-100" : "opacity-0 translate-y-10"}`}
+        className={`border-t border-slate-800 py-10 sm:py-12 text-center transition-all duration-700 px-4 sm:px-6`}
       >
         <h4 className="text-orange-500 font-bold text-base sm:text-lg">
           Smart Production
