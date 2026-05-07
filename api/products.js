@@ -11,16 +11,44 @@ const categories = [
   { id: 6, name: "Accessories" },
 ];
 
+const sampleNames = {
+  1: ["Basic Tee", "Graphic Tee", "Oversized Tee", "Slim Fit Tee"],
+  2: ["Slim Fit Jeans", "Ripped Jeans", "Straight Jeans", "Baggy Jeans"],
+  3: ["Denim Jacket", "Leather Jacket", "Bomber Jacket", "Windbreaker"],
+  4: ["Running Sneakers", "Casual Sneakers", "High Top Sneakers", "Street Sneakers"],
+  5: ["Pullover Hoodie", "Zip Hoodie", "Oversized Hoodie", "Fleece Hoodie"],
+  6: ["Baseball Cap", "Backpack", "Wrist Watch", "Sunglasses"],
+};
+
 const products = Array.from({ length: 80 }, (_, i) => {
   const category = categories[i % categories.length];
 
+  const baseQuery = category.name.toLowerCase();
+
+  const names = sampleNames[category.id];
+  const name = names[i % names.length];
+
   return {
     id: i + 1,
-    name: `Product ${i + 1}`,
+    name: `${name} ${i + 1}`,
+
     categoryId: category.id,
     categoryName: category.name,
+
     price: 10 + i,
     rating: Number((Math.random() * 2 + 3).toFixed(1)),
+
+    /* =========================
+       IMAGES
+    ========================= */
+
+    mainImage: `https://source.unsplash.com/600x600/?${baseQuery},fashion&sig=${i}`,
+
+    images: [
+      `https://source.unsplash.com/600x600/?${baseQuery}&sig=${i + 1}`,
+      `https://source.unsplash.com/600x600/?fashion,clothes&sig=${i + 2}`,
+      `https://source.unsplash.com/600x600/?style,outfit&sig=${i + 3}`,
+    ],
   };
 });
 
@@ -42,9 +70,7 @@ export default function handler(req, res) {
     let result = [...products];
 
     /* =========================
-       GET /products/1  (SIMULATED)
-       NOTE: Vercel cannot do real /1 in same file
-       so we support /products?id=1
+       SINGLE PRODUCT
     ========================= */
     if (id) {
       const product = products.find(
@@ -69,7 +95,9 @@ export default function handler(req, res) {
     ========================= */
     if (search) {
       result = result.filter((p) =>
-        p.name.toLowerCase().includes(search.toLowerCase())
+        p.name
+          .toLowerCase()
+          .includes(search.toLowerCase())
       );
     }
 
