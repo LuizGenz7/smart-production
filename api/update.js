@@ -18,7 +18,7 @@ function compareVersions(current, target) {
 export default function handler(req, res) {
   try {
     const config = {
-      latestVersion: "1.1.4",
+      latestVersion: "1.1.3",
       minimumVersion: "1.0.2",
       updateUrl: "https://smartproduction.vercel.app/",
       message: "Network status updated",
