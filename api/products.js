@@ -22,11 +22,10 @@ const sampleNames = {
 
 const products = Array.from({ length: 80 }, (_, i) => {
   const category = categories[i % categories.length];
-
-  const baseQuery = category.name.toLowerCase();
-
   const names = sampleNames[category.id];
   const name = names[i % names.length];
+
+  const imgId = (i % 1000) + 1;
 
   return {
     id: i + 1,
@@ -39,15 +38,16 @@ const products = Array.from({ length: 80 }, (_, i) => {
     rating: Number((Math.random() * 2 + 3).toFixed(1)),
 
     /* =========================
-       IMAGES
+       SAFE WORKING IMAGES
+       (picsum.photos)
     ========================= */
 
-    mainImage: `https://source.unsplash.com/600x600/?${baseQuery},fashion&sig=${i}`,
+    mainImage: `https://picsum.photos/seed/product-${imgId}/600/600`,
 
     images: [
-      `https://source.unsplash.com/600x600/?${baseQuery}&sig=${i + 1}`,
-      `https://source.unsplash.com/600x600/?fashion,clothes&sig=${i + 2}`,
-      `https://source.unsplash.com/600x600/?style,outfit&sig=${i + 3}`,
+      `https://picsum.photos/seed/product-${imgId}-1/600/600`,
+      `https://picsum.photos/seed/product-${imgId}-2/600/600`,
+      `https://picsum.photos/seed/product-${imgId}-3/600/600`,
     ],
   };
 });
@@ -140,9 +140,6 @@ export default function handler(req, res) {
       start + limitNum
     );
 
-    /* =========================
-       RESPONSE
-    ========================= */
     return res.status(200).json({
       success: true,
 
