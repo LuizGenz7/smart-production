@@ -1,7 +1,8 @@
 /* ==========================================
-   MOCK STORE API
+   STORE API
 ========================================== */
 
+// Categories
 const categories = [
   {
     id: 1,
@@ -35,6 +36,7 @@ const categories = [
   }
 ];
 
+// Sample names
 const sampleNames = {
   1: ["Basic Tee", "Graphic Tee", "Oversized Tee"],
   2: ["Slim Fit Jeans", "Ripped Jeans", "Straight Jeans"],
@@ -44,15 +46,18 @@ const sampleNames = {
   6: ["Cap", "Backpack", "Watch"]
 };
 
+// Products
 const products = Array.from({ length: 100 }, (_, i) => {
-  const categoryId = (i % categories.length) + 1;
+  const categoryId = (i % 6) + 1;
 
   const category = categories.find(
     item => item.id === categoryId
   );
 
-  const names = sampleNames[categoryId];
-  const name = names[i % names.length];
+  const name =
+    sampleNames[categoryId][
+      i % sampleNames[categoryId].length
+    ];
 
   return {
     id: i + 1,
@@ -70,228 +75,215 @@ const products = Array.from({ length: 100 }, (_, i) => {
       Math.random() * 100
     ),
 
-    description: `Premium ${name.toLowerCase()} for daily wear.`,
-
-    image: `https://source.unsplash.com/400x400/?${category.name.toLowerCase()}&sig=${i}`,
-
     brand: "SmartWear",
 
-    isNew: i % 7 === 0,
-    isFeatured: i % 5 === 0,
-
-    discount:
-      i % 5 === 0 ? 10 : 0
+    image: `https://source.unsplash.com/400x400/?${category.name}&sig=${i}`
   };
 });
 
 /* ==========================================
-   PRODUCTS
+   MAIN HANDLER
 ========================================== */
 
-export const getProducts = (req, res) => {
+const handler = (req, res) => {
   try {
-    const {
-      page = 1,
-      limit = 10,
-      search,
-      category,
-      sort
-    } = req.query;
+    const path = req.path
+      .split("/")
+      .filter(Boolean);
 
-    let result = [...products];
+    // Example:
+    // /products → ["products"]
+    // /products/1 → ["products", "1"]
 
-    // Search
-    if (search) {
-      result = result.filter(product =>
-        product.name
-          .toLowerCase()
-          .includes(search.toLowerCase())
-      );
-    }
+    const resource = path[0];
+    const id = path[1];
 
-    // Filter by category name
-    if (category) {
-      result = result.filter(product =>
-        product.categoryName
-          .toLowerCase()
-          .includes(category.toLowerCase())
-      );
-    }
+    /* ==========================
+       PRODUCTS
+    ========================== */
 
-    // Sorting
-    switch (sort) {
-      case "price-low":
-        result.sort(
-          (a, b) => a.price - b.price
+    if (resource === "products") {
+
+      // GET /products/1
+      if (id) {
+        const product = products.find(
+          item =>
+            item.id === Number(id)
         );
-        break;
 
-      case "price-high":
-        result.sort(
-          (a, b) => b.price - a.price
-        );
-        break;
+        if (!product) {
+          return res.status(404).json({
+            success: false,
+            message:
+              "Product not found"
+          });
+        }
 
-      case "rating":
-        result.sort(
-          (a, b) => b.rating - a.rating
-        );
-        break;
-
-      case "newest":
-        result.sort(
-          (a, b) => b.id - a.id
-        );
-        break;
-
-      default:
-        break;
-    }
-
-    // Pagination
-    const pageNumber = Number(page);
-    const limitNumber = Number(limit);
-
-    const start =
-      (pageNumber - 1) * limitNumber;
-
-    const paginatedProducts =
-      result.slice(
-        start,
-        start + limitNumber
-      );
-
-    return res.status(200).json({
-      success: true,
-
-      pagination: {
-        page: pageNumber,
-        limit: limitNumber,
-        totalItems: result.length,
-        totalPages: Math.ceil(
-          result.length / limitNumber
-        )
-      },
-
-      data: paginatedProducts
-    });
-
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-};
-
-/* ==========================================
-   SINGLE PRODUCT
-========================================== */
-
-export const getProductById = (
-  req,
-  res
-) => {
-  try {
-    const id = Number(
-      req.params.id
-    );
-
-    const product =
-      products.find(
-        item => item.id === id
-      );
-
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        message:
-          "Product not found"
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      data: product
-    });
-
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-};
-
-/* ==========================================
-   CATEGORIES
-========================================== */
-
-export const getCategories = (
-  req,
-  res
-) => {
-  try {
-    return res.status(200).json({
-      success: true,
-      count: categories.length,
-      data: categories
-    });
-
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-};
-
-/* ==========================================
-   SINGLE CATEGORY
-========================================== */
-
-export const getCategoryById = (
-  req,
-  res
-) => {
-  try {
-    const id = Number(
-      req.params.id
-    );
-
-    const category =
-      categories.find(
-        item => item.id === id
-      );
-
-    if (!category) {
-      return res.status(404).json({
-        success: false,
-        message:
-          "Category not found"
-      });
-    }
-
-    const categoryProducts =
-      products.filter(
-        product =>
-          product.categoryId === id
-      );
-
-    return res.status(200).json({
-      success: true,
-
-      data: {
-        ...category,
-        products:
-          categoryProducts
+        return res.status(200).json({
+          success: true,
+          data: product
+        });
       }
+
+      // GET /products?page=1
+      const {
+        page = 1,
+        limit = 10,
+        search,
+        category,
+        sort
+      } = req.query;
+
+      let result = [...products];
+
+      // Search
+      if (search) {
+        result = result.filter(
+          item =>
+            item.name
+              .toLowerCase()
+              .includes(
+                search.toLowerCase()
+              )
+        );
+      }
+
+      // Category
+      if (category) {
+        result = result.filter(
+          item =>
+            item.categoryName
+              .toLowerCase() ===
+            category.toLowerCase()
+        );
+      }
+
+      // Sort
+      switch (sort) {
+        case "price-low":
+          result.sort(
+            (a, b) =>
+              a.price - b.price
+          );
+          break;
+
+        case "price-high":
+          result.sort(
+            (a, b) =>
+              b.price - a.price
+          );
+          break;
+
+        case "rating":
+          result.sort(
+            (a, b) =>
+              b.rating - a.rating
+          );
+          break;
+      }
+
+      // Pagination
+      const pageNum =
+        Number(page);
+
+      const limitNum =
+        Number(limit);
+
+      const start =
+        (pageNum - 1) *
+        limitNum;
+
+      const data =
+        result.slice(
+          start,
+          start + limitNum
+        );
+
+      return res.status(200).json({
+        success: true,
+
+        pagination: {
+          page: pageNum,
+          limit: limitNum,
+          total: result.length,
+          pages: Math.ceil(
+            result.length /
+              limitNum
+          )
+        },
+
+        data
+      });
+    }
+
+    /* ==========================
+       CATEGORIES
+    ========================== */
+
+    if (
+      resource ===
+      "categories"
+    ) {
+
+      // GET /categories/1
+      if (id) {
+        const category =
+          categories.find(
+            item =>
+              item.id ===
+              Number(id)
+          );
+
+        if (!category) {
+          return res.status(404).json({
+            success: false,
+            message:
+              "Category not found"
+          });
+        }
+
+        const categoryProducts =
+          products.filter(
+            item =>
+              item.categoryId ===
+              Number(id)
+          );
+
+        return res.status(200).json({
+          success: true,
+
+          data: {
+            ...category,
+            products:
+              categoryProducts
+          }
+        });
+      }
+
+      // GET /categories
+      return res.status(200).json({
+        success: true,
+        data: categories
+      });
+    }
+
+    /* ==========================
+       NOT FOUND
+    ========================== */
+
+    return res.status(404).json({
+      success: false,
+      message:
+        "Route not found"
     });
 
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: error.message
+      message:
+        error.message
     });
   }
 };
+
+export default handler;
