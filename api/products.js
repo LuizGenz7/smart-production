@@ -1,4 +1,6 @@
-// /api/products.js
+/* =========================
+   MOCK DATA
+========================= */
 
 const categories = [
   { id: 1, name: "T-Shirts" },
@@ -9,7 +11,7 @@ const categories = [
   { id: 6, name: "Accessories" },
 ];
 
-const products = Array.from({ length: 50 }, (_, i) => {
+const products = Array.from({ length: 80 }, (_, i) => {
   const category = categories[i % categories.length];
 
   return {
@@ -18,49 +20,118 @@ const products = Array.from({ length: 50 }, (_, i) => {
     categoryId: category.id,
     categoryName: category.name,
     price: 10 + i,
+    rating: Number((Math.random() * 2 + 3).toFixed(1)),
   };
 });
 
+/* =========================
+   HANDLER
+========================= */
+
 export default function handler(req, res) {
-  const { id, page = 1, limit = 10, search, category } = req.query;
+  try {
+    const {
+      id,
+      page = 1,
+      limit = 10,
+      search,
+      category,
+      sort,
+    } = req.query;
 
-  // GET /api/products/1 (NOT supported here unless separate file)
-  if (id) {
-    const product = products.find(p => p.id === Number(id));
+    let result = [...products];
 
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found",
+    /* =========================
+       GET /products/1  (SIMULATED)
+       NOTE: Vercel cannot do real /1 in same file
+       so we support /products?id=1
+    ========================= */
+    if (id) {
+      const product = products.find(
+        (p) => p.id === Number(id)
+      );
+
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: "Product not found",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: product,
       });
     }
 
-    return res.json({
+    /* =========================
+       SEARCH
+    ========================= */
+    if (search) {
+      result = result.filter((p) =>
+        p.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    /* =========================
+       CATEGORY FILTER
+    ========================= */
+    if (category) {
+      result = result.filter(
+        (p) =>
+          p.categoryName.toLowerCase() ===
+          category.toLowerCase()
+      );
+    }
+
+    /* =========================
+       SORTING
+    ========================= */
+    if (sort === "price-low") {
+      result.sort((a, b) => a.price - b.price);
+    }
+
+    if (sort === "price-high") {
+      result.sort((a, b) => b.price - a.price);
+    }
+
+    if (sort === "rating") {
+      result.sort((a, b) => b.rating - a.rating);
+    }
+
+    /* =========================
+       PAGINATION
+    ========================= */
+    const pageNum = Number(page);
+    const limitNum = Number(limit);
+
+    const start = (pageNum - 1) * limitNum;
+
+    const paginated = result.slice(
+      start,
+      start + limitNum
+    );
+
+    /* =========================
+       RESPONSE
+    ========================= */
+    return res.status(200).json({
       success: true,
-      data: product,
+
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total: result.length,
+        pages: Math.ceil(result.length / limitNum),
+      },
+
+      data: paginated,
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
     });
   }
-
-  let result = [...products];
-
-  if (search) {
-    result = result.filter(p =>
-      p.name.toLowerCase().includes(search.toLowerCase())
-    );
-  }
-
-  if (category) {
-    result = result.filter(
-      p => p.categoryName.toLowerCase() === category.toLowerCase()
-    );
-  }
-
-  const start = (page - 1) * limit;
-
-  res.json({
-    success: true,
-    page: Number(page),
-    total: result.length,
-    data: result.slice(start, start + Number(limit)),
-  });
 }
