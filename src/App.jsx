@@ -15,6 +15,7 @@ import {
   CpuChipIcon,
   RocketLaunchIcon,
 } from "@heroicons/react/24/outline";
+import { getCountdown } from "./utils/countdown";
 
 const smartMarkShots = ["/s1.png", "/s3.png", "/s4.png"];
 
@@ -109,6 +110,7 @@ const links = [
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
+  const { D, H, M, S } = getCountdown("2026-05-01", "2026-06-01");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -179,8 +181,9 @@ export default function App() {
             <p className="text-xs sm:text-sm text-orange-300 text-center sm:text-left">
               🔥 <span className="font-bold text-white">Limited Offer:</span>{" "}
               First school gets SmartMark for{" "}
-              <span className="font-bold text-orange-400">K800</span> instead of{" "}
-              <span className="line-through">K1000</span> for the first 2 terms.
+              <span className="font-bold text-orange-400">K400</span> instead of{" "}
+              <span className="line-through">K500</span> for the first term.
+              <span className="text-lg text-red-500 font-bold ml-4">{D} Days {H} Hrs {M} Mins {S} Sec</span> left
             </p>
 
             <a
@@ -433,14 +436,15 @@ export default function App() {
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
             <p className="text-slate-400 text-sm mb-2">Standard Plan</p>
 
-            <h4 className="text-3xl font-bold text-white">K1000</h4>
+            <h4 className="text-3xl font-bold text-white">K500</h4>
 
             <p className="text-slate-500 text-sm mt-1">Per School • Per Term</p>
 
             <div className="mt-4 text-sm text-slate-300 space-y-2">
+              <p>✓ 1 Month Free Access</p>
               <p>✓ Attendance Management</p>
               <p>✓ Pupil Records</p>
-              <p>✓ Reports & Analytics</p>
+              <p>✓ Termly Reports</p>
               <p>✓ Cloud Sync</p>
             </div>
           </div>
@@ -453,19 +457,18 @@ export default function App() {
 
             <p className="text-orange-400 text-sm mb-2">Launch Offer</p>
 
-            <h4 className="text-3xl font-bold text-white">K800</h4>
+            <h4 className="text-3xl font-bold text-white">K400</h4>
 
             <p className="text-slate-300 text-sm mt-1 font-medium">
-              Per Term • For the First 2 Terms
+              Per Term • For the First Term
             </p>
 
             <p className="text-slate-400 text-xs mt-2">
-              First school pays K800 each term instead of K1000.
+              First school pays K400 first term instead of K500.
             </p>
 
             <div className="mt-4 text-sm text-slate-300 space-y-2">
-              <p>✓ Save K200 every term</p>
-              <p>✓ Save K400 across 2 terms</p>
+              <p>✓ Save K100 first term</p>
               <p>✓ Full SmartMark access</p>
               <p>✓ Priority support</p>
             </div>
