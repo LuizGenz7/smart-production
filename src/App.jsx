@@ -699,7 +699,7 @@ export default function App() {
 
           {/* CALL */}
           <a
-            href="tel:+260962063468"
+            href="tel:+260761339187"
             className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 hover:border-blue-500 transition"
           >
             <h4 className="font-bold flex items-center gap-2 text-sm sm:text-base">
