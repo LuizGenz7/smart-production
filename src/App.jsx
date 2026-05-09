@@ -710,7 +710,7 @@ export default function App() {
               Tap to call instantly
             </p>
             <p className="text-[11px] sm:text-xs text-slate-500 mt-2">
-              +260 962 063 468
+              +260 761 339 187
             </p>
           </a>
 
