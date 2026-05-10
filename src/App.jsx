@@ -16,6 +16,7 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/outline";
 import { getCountdown } from "./utils/countdown";
+import FocusCountdown from "./Countdown";
 
 const smartMarkShots = ["/s1.png", "/s3.png", "/s4.png"];
 
@@ -110,6 +111,7 @@ const links = [
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
+  const [ showCountdown, setShow ] = useState(false);
   const { D, H, M, S } = getCountdown("2026-05-01", "2026-06-01");
 
   useEffect(() => {
@@ -128,7 +130,9 @@ export default function App() {
     "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800",
     "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800",
   ];
-
+   if(showCountdown){
+    return <FocusCountdown setShow={setShow} />
+   }
   return (
     <div className="bg-slate-950 text-white">
       {/* HEADER */}
@@ -764,7 +768,7 @@ export default function App() {
           future.
         </p>
 
-        <p className="text-slate-600 text-[11px] sm:text-xs mt-5 sm:mt-6">
+        <p onClick={() => setShow(true)} className="text-slate-600 text-[11px] sm:text-xs mt-5 sm:mt-6">
           © 2026 Smart Production. All rights reserved.
         </p>
       </footer>
